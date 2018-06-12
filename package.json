@@ -1,19 +1,64 @@
 {
   "name": "json-schema",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "A library for describing the structure of JSON data",
+  "main": "./dist/browser.js",
+  "files": [
+    "./dist/**/*.js"
+  ],
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha 'lib/**/*-spec.js'"
+    "build": "npm run lint && babel lib --out-dir dist --ignore .spec.js",
+    "clean": "cat .gitignore | xargs rm -rf",
+    "coverage": "nyc --reporter=html --reporter=text npm test",
+    "lint": "eslint lib",
+    "prepublishOnly": "npm run build",
+    "test": "mocha-webpack lib"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdesrosiers/json-spec-js"
+  },
+  "keywords": [
+    "JSON Spec",
+    "validate",
+    "validation"
+  ],
+  "author": "Jason Desrosiers <jdesrosi@gmail.com>",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdesrosiers/api-browser/issues"
+  },
+  "homepage": "https://github.com/jdesrosiers/api-browser#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-root-import": "^5.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "fetch-mock": "^6.4.3",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "json-schema-test-suite": "0.0.10",
-    "mocha": "^5.0.0"
+    "mocha": "^5.2.0",
+    "mocha-webpack": "^2.0.0-beta.0",
+    "nyc": "^11.8.0",
+    "webpack": "^4.8.3",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "json-stable-stringify": "^1.0.1"
+  },
+  "nyc": {
+    "include": [
+      "lib/**/*.js"
+    ],
+    "instrument": false,
+    "sourceMap": false
   }
 }

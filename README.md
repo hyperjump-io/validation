@@ -1,10 +1,7 @@
-JSON Schema-ish Utility
-=======================
+JSON Spec
+=========
 
-This is NOT a JSON Schema implementation. It is heavily inspired by JSON Schema,
-but it is my vision of what I think JSON Schema should be as well as experiments
-with where it could go.
-
+JSON Spec is a media type for describing and validating the structure of JSON data.
 
 Installation
 ------------
@@ -13,7 +10,7 @@ Usage
 -----
 
 ```javascript
-const schema = JsonSchema("#", `{
+const spec = JsonSpec("#", `{
   "type": "object",
   "properties": {
     "foo": { "type": "string" }
@@ -25,20 +22,17 @@ const value1 = { "foo": "bar" };
 const value2 = { "abc": 123 };
 
 // Validate in one step
-JsonSchema.validate(schema)(value1);
+JsonSpec.validate(spec)(value1);
 
-// Generate a validator from a schema and validate multiple instances
-const validator = JsonSchema.validate(schema);
+// Generate a validator from a spec and validate multiple instances
+const validator = JsonSpec.validate(spec);
+
 const result = validator(value);
-ValidationResult.isValid(result);
+const isValid = ValidationResult.isValid(result);
 ```
 
 Contributing
 ------------
-
-I strongly encourage contributions from anyone wants to explore these ideas with
-me. But, I will not accept changes that violate my chosen architecture no matter
-how practically useful it might be for you.
 
 ### Tests
 
@@ -56,44 +50,42 @@ npm test -- --watch
 Architectural Contraints
 ------------------------
 
-TODO
+### Stateless
+
+All keywords are stateless. The result of validating a keyword is dependent
+only on the value being validated an the keyword value. A keyword can not be
+dependent on another keyword or any external data.
 
 Experiments
 -----------
 
-### Macros / Code on Demand
+### Modular System
 
-TODO
+There is no single meta-spec. Instead, each keyword has its own meta-spec and
+the spec defines which keywords that validators should enforce.
 
-### REST / Hypermedia
+### Macros
 
-TODO
+The goal is to keep the number of keywords in the specificaiton to the smallest
+number possible and to use something like macros to define keywords that are
+just syntactic sugar.
 
-Style / Values
---------------
+For example an `enum` keyword is unnecessary because `"enum": ["a", "b"]` is
+syntactic sugar for `"anyOf": [{ "const": "a" }, { "const": "b" }]`.
 
-### Functional Programming
+### Code on Demand
 
-I'm using a functional programming style that looks more like Clojure than
-JavaScript. Maybe I should have wrote it in ClojureScript, but I didn't and it
-is what it is.
-
-### Small Footprint
-
-Even though this project is primarily for exploration and experimentation, I
-aim to keep the size small as if it were a production module.
-
-### Efficiency
-
-This implmentation aims to be as computationally efficient as possible without
-compromising the quality of the code or any achitectural choices.
+For the things that can't be described as macros, it's possible to describe a
+keyword implementation using JavaScript. Even the built-in keywords can be
+described like this making validator implementations trivial in any language
+with a JavaScript runtime.
 
 TODOs
 -----
 
 * Implement format
-* Create a meta schema
-* Err on invalid schema based on meta schema
+* Create a meta spec for each keyword
+* Err on invalid spec based on meta spec
 * Detailed validation results
 * Handle remote refs
 * Clean up duplication in JsonReference
