@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@hyperjump/json-pointer": "^0.1.2",
+    "@hyperjump/json-reference": "^0.1.0",
     "json-stable-stringify": "^1.0.1"
   },
   "nyc": {
