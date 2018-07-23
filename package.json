@@ -47,13 +47,14 @@
     "json-schema-test-suite": "0.0.10",
     "mocha": "^5.2.0",
     "mocha-webpack": "^2.0.0-beta.0",
+    "nock": "^9.4.2",
     "nyc": "^11.8.0",
     "webpack": "^4.14.0",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "@hyperjump/json-pointer": "^0.1.2",
-    "@hyperjump/json-reference": "^0.1.0",
+    "@hyperjump/json-reference": "^0.2.0",
     "json-stable-stringify": "^1.0.1"
   },
   "nyc": {
