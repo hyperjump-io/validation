@@ -87,9 +87,6 @@ TODOs
 * Create a meta spec for each keyword
 * Err on invalid spec based on meta spec
 * Detailed validation results
-* Handle remote refs
-* Clean up duplication in JsonReference
 * Value as JSON Reference document
 * maxLength and minLength for emojis
-* refactor validatorList to not contain functions
 * More detailed validation results
