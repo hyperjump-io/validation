@@ -9,26 +9,41 @@ Installation
 Usage
 -----
 
-```javascript
-const spec = JsonSpec("#", `{
+```http
+GET http://json-reference.hyperjump.com/example1 HTTP/1.1
+Accept: application/reference+json
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/reference+json
+
+{
   "type": "object",
   "properties": {
     "foo": { "type": "string" }
   },
   "required": ["foo"]
-}`);
+}
+```
 
-const value1 = { "foo": "bar" };
-const value2 = { "abc": 123 };
+```javascript
+(async () => {
+  const value1 = { "foo": "bar" };
+  const value2 = { "abc": 123 };
 
-// Validate in one step
-JsonSpec.validate(spec)(value1);
+  // Get a schema
+  const schema = await JsonSpec.get("http://json-spec.hyperjump.com/example1");
 
-// Generate a validator from a spec and validate multiple instances
-const validator = JsonSpec.validate(spec);
+  // Get a validator function from a schema
+  const validator = await JsonSpec.validate(spec);
 
-const result = validator(value);
-const isValid = ValidationResult.isValid(result);
+  const result1 = validator(value1);
+  ValidationResult.isValid(result1); // => true
+
+  const result2 = validator(value2);
+  ValidationResult.isValid(result2); // => false
+}());
 ```
 
 Contributing
@@ -88,5 +103,4 @@ TODOs
 * Err on invalid spec based on meta spec
 * Detailed validation results
 * Value as JSON Reference document
-* maxLength and minLength for emojis
 * More detailed validation results
