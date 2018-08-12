@@ -1,10 +1,9 @@
 {
-  "name": "json-schema",
+  "name": "@hyperjump/json-validation",
   "version": "0.0.1",
-  "description": "A library for describing the structure of JSON data",
-  "main": "./dist/browser.js",
+  "description": "A media type for describing and validating the structure of JSON data",
   "files": [
-    "./dist/**/*"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "npm run lint && babel lib --out-dir dist --ignore .spec.js",
@@ -14,21 +13,15 @@
     "prepublishOnly": "npm run build",
     "test": "mocha-webpack lib"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jdesrosiers/json-spec-js"
-  },
+  "repository": "github:jdesrosiers/json-validation",
   "keywords": [
-    "JSON Spec",
+    "JSON Validation",
     "validate",
-    "validation"
+    "validation",
+    "JSON Reference"
   ],
   "author": "Jason Desrosiers <jdesrosi@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jdesrosiers/api-browser/issues"
-  },
-  "homepage": "https://github.com/jdesrosiers/api-browser#readme",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
