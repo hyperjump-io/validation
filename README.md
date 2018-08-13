@@ -26,7 +26,7 @@ Usage
 -----
 
 ```http
-GET http://json-validation.hyperjump.com/example1 HTTP/1.1
+GET http://validation.hyperjump.com/example1 HTTP/1.1
 Accept: application/reference+json
 ```
 
@@ -46,7 +46,7 @@ Content-Type: application/validation+json
 ```javascript
 (async () => {
   // Get a validation document
-  const doc = await JsonValidation.get("http://json-validation.hyperjump.com/example1");
+  const doc = await JsonValidation.get("http://validation.hyperjump.com/example1");
 
   // Get a validator function from a validation document
   const validate = await JsonValidation.validate(doc);
