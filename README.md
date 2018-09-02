@@ -93,7 +93,7 @@ retrieveable.
 
 JSON Validation should be composable at as many levels as possible. There are a
 set of predefined keywords. New keywords can be defined as a composition of
-other keywords. (comming soon)
+other keywords. (coming soon)
 
 A JSON Validation document is a collection of keywords. Each keyword adds a
 constraint. An empty JSON Validation document (`{}`) has no contraints. All JSON
@@ -118,22 +118,24 @@ JSON Validation documents should validate the same way no matter what language
 the validator is implemented in. Each document identifies what keywords the
 implementation must support. Generating a validation function should result in
 an error if the implementation doesn't support one or more of the the keywords
-in the JSON Validation document. (comming soon)
+in the JSON Validation document. (coming soon)
 
 The result of validating a JSON document should follow a standardized structure.
-(comming soon)
+(coming soon)
 
 ### Code on Demand
 
 For the things that can't be described as keywords, it should be possible to
-describe a keyword implementation using JavaScript (comming soon).
+describe a keyword implementation using JavaScript (coming soon).
 
 TODOs
 -----
 
-* Meta-validation for each validation keyword
-* Err on invalid validation document
-* Value as JSON Reference document
+* Keywords as URLs
+* Keywords must be declared
 * More detailed validation results
+* Value as JSON Reference document
 * Keyword composition
 * Error message keyword
+* `$data` keyword
+* JSON serializable validators

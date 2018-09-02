@@ -1,0 +1,10 @@
+{
+  "anyOf": [
+    { "const": "null" },
+    { "const": "boolean" },
+    { "const": "object" },
+    { "const": "array" },
+    { "const": "number" },
+    { "const": "string" }
+  ]
+}
