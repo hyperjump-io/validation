@@ -133,9 +133,10 @@ TODOs
 
 * Keywords as URLs
 * Keywords must be declared
+* Meta validation for keywords whose values are schemas
+* JSON serializable validators
 * More detailed validation results
+* Error message keyword
 * Value as JSON Reference document
 * Keyword composition
-* Error message keyword
 * `$data` keyword
-* JSON serializable validators

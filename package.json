@@ -46,7 +46,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@hyperjump/json-reference": "^0.3.2",
+    "@hyperjump/json-reference": "^0.5.1",
     "json-stable-stringify": "^1.0.1",
     "text-encoding": "^0.6.4"
   },
