@@ -131,8 +131,6 @@ describe a keyword implementation using JavaScript (coming soon).
 TODOs
 -----
 
-* Keywords as URLs
-* Keywords must be declared
 * Meta validation for keywords whose values are schemas
 * More detailed validation results
 * Error message keyword
