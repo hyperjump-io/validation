@@ -4,7 +4,7 @@ JSON Validation
 JSON Validation is a media type for describing and validating the structure of
 JSON data. Over the years, I've written a lot of JSON Schemas and helped others
 in all kinds of domains write their JSON Schemas. JSON Validation is a
-re-imaginging of JSON Schema based on my experiences and knowledge. In part,
+re-imagining of JSON Schema based on my experiences and knowledge. In part,
 it's an implementation of how I would define JSON Schema if given a blank slate,
 but mostly I'm using this implementation as a sandbox to try out new ideas and
 approaches to the JSON Schema style.
@@ -14,7 +14,7 @@ document and has the content type `application/validation+json`. To understand
 JSON Validation, you should first understand JSON Reference. Beware that this is
 not quite the same JSON Reference that is used in JSON Schema.
 
-A JSON Validation document is a delarative set of constraints that a JSON
+A JSON Validation document is a declarative set of constraints that a JSON
 document must conform to in order to be considered valid. The JSON Validation
 document is parsable into a pure function that can be used to validate a JSON
 document in any language.
@@ -75,7 +75,7 @@ Run the tests with a continuous test runner
 npm test -- --watch
 ```
 
-Philosophy and Architectural Contraints
+Philosophy and Architectural Constraints
 ---------------------------------------
 
 ### JSON
@@ -87,7 +87,7 @@ intended for validating programming language specific types or data structures.
 
 JSON Validation is designed to be used as part of a client-server architecture.
 Therefore JSON Validation documents, must be identified by a URL and must be
-retrieveable.
+retrievable.
 
 ### Layered System
 
@@ -96,7 +96,7 @@ set of predefined keywords. New keywords can be defined as a composition of
 other keywords. (coming soon)
 
 A JSON Validation document is a collection of keywords. Each keyword adds a
-constraint. An empty JSON Validation document (`{}`) has no contraints. All JSON
+constraint. An empty JSON Validation document (`{}`) has no constraints. All JSON
 documents are valid. Each keyword adds a constraint further narrowing what
 constitutes a valid document.
 
@@ -134,9 +134,8 @@ TODOs
 * Keywords as URLs
 * Keywords must be declared
 * Meta validation for keywords whose values are schemas
-* JSON serializable validators
 * More detailed validation results
 * Error message keyword
 * Value as JSON Reference document
-* Keyword composition
 * `$data` keyword
+* Keyword composition
