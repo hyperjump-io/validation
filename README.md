@@ -131,9 +131,9 @@ describe a keyword implementation using JavaScript (coming soon).
 TODOs
 -----
 
-* Meta validation for keywords whose values are schemas
-* More detailed validation results
-* Error message keyword
+* Compile validator to ASTs
 * Value as JSON Reference document
 * `$data` keyword
+* More detailed validation results
+* Error message keyword
 * Keyword composition
