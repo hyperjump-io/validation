@@ -131,7 +131,6 @@ describe a keyword implementation using JavaScript (coming soon).
 TODOs
 -----
 
-* Compile validator to ASTs
 * Value as JSON Reference document
 * `$data` keyword
 * More detailed validation results
