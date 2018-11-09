@@ -11,7 +11,7 @@
     "coverage": "nyc --reporter=html --reporter=text npm test",
     "lint": "eslint lib",
     "prepublishOnly": "npm run build",
-    "test": "mocha-webpack lib"
+    "test": "mocha-webpack \"lib/**/*.spec.js\""
   },
   "repository": "github:jdesrosiers/json-validation",
   "keywords": [
