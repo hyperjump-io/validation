@@ -2,59 +2,37 @@
   "name": "@hyperjump/json-validation",
   "version": "0.5.2",
   "description": "A media type for describing and validating the structure of JSON data",
+  "main": "lib/json-validation.js",
   "files": [
-    "dist/**/*"
+    "lib/**/*"
   ],
   "scripts": {
-    "build": "npm run lint && babel lib --out-dir dist --ignore .spec.js",
-    "clean": "cat .gitignore | xargs rm -rf",
-    "coverage": "nyc --reporter=html --reporter=text npm test",
+    "clean": "xargs -a .gitignore rm -rf",
     "lint": "eslint lib",
-    "prepublishOnly": "npm run build",
-    "test": "mocha-webpack \"lib/**/*.spec.js\""
+    "test": "mocha 'lib/**/*.spec.js'"
   },
   "repository": "github:jdesrosiers/json-validation",
   "keywords": [
     "JSON Validation",
     "validate",
     "validation",
-    "JSON Reference"
+    "JSON Reference",
+    "hyperjump"
   ],
   "author": "Jason Desrosiers <jdesrosi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.5",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-root-import": "^5.1.0",
-    "babel-plugin-transform-async-to-module-method": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "eslint": "^4.19.1",
-    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
-    "eslint-loader": "^2.1.1",
+    "eslint-import-resolver-node": "^0.3.2",
     "eslint-plugin-import": "^2.13.0",
-    "istanbul-instrumenter-loader": "^3.0.1",
     "mocha": "^5.2.0",
-    "mocha-webpack": "^2.0.0-beta.0",
-    "nock": "^9.4.3",
-    "nyc": "^11.8.0",
-    "webpack": "^4.26.1",
-    "webpack-node-externals": "^1.7.2"
+    "nock": "^9.4.3"
   },
   "dependencies": {
     "@hyperjump/json-reference": "^0.5.5",
     "fastest-stable-stringify": "^2.0.2",
     "iconv-lite": "^0.4.24"
-  },
-  "nyc": {
-    "include": [
-      "lib/**/*.js"
-    ],
-    "instrument": false,
-    "sourceMap": false
   }
 }
