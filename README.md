@@ -46,7 +46,7 @@ Content-Type: application/validation+json
 ```javascript
 (async () => {
   // Get a validation document
-  const doc = await JsonValidation.get("http://validation.hyperjump.io/example1");
+  const doc = await JsonValidation.get("http://validation.hyperjump.io/example1", JsonValidation.nil);
 
   // Get a validator function from a validation document
   const validate = await JsonValidation.validate(doc);
