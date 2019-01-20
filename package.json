@@ -1,6 +1,6 @@
 {
   "name": "@hyperjump/json-validation",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A media type for describing and validating the structure of JSON data",
   "main": "lib/json-validation.js",
   "files": [
