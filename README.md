@@ -117,8 +117,8 @@ should be created that is identified by a unique URL.
 JSON Validation documents should validate the same way no matter what language
 the validator is implemented in. Each document identifies what keywords the
 implementation must support. Generating a validation function should result in
-an error if the implementation doesn't support one or more of the the keywords
-in the JSON Validation document. (coming soon)
+an error if the implementation doesn't support one or more of the keywords in
+the JSON Validation document.
 
 The result of validating a JSON document should follow a standardized structure.
 (coming soon)
