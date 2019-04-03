@@ -44,12 +44,14 @@ Content-Type: application/validation+json
 ```
 
 ```javascript
+const Validation = require("@hyperjump/json-validation");
+
 (async () => {
   // Get a validation document
-  const doc = await JsonValidation.get("http://validation.hyperjump.io/example1", JsonValidation.nil);
+  const doc = await Validation.get("http://validation.hyperjump.io/example1", Validation.nil);
 
   // Get a validator function from a validation document
-  const validate = await JsonValidation.validate(doc);
+  const validate = await Validation.validate(doc);
 
   const result1 = validate({ "foo": "bar" });
   ValidationResult.isValid(result1); // => true
@@ -108,7 +110,7 @@ dependent on another keyword or any external data.
 
 ### Cache
 
-JSON Validation documents are immutable and should be cacheable forever. Once
+JSON Validation documents should be immutable and cacheable forever. Once
 published, they should never change. If they need to change, a new document
 should be created that is identified by a unique URL.
 
