@@ -28,7 +28,7 @@
     "nock": "^9.4.3"
   },
   "dependencies": {
-    "@hyperjump/browser": "^0.12.0",
+    "@hyperjump/browser": "^0.13.0",
     "fastest-stable-stringify": "^2.0.2",
     "iconv-lite": "^0.4.24"
   }
