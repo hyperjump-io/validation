@@ -23,12 +23,12 @@
     "chai-as-promised": "^7.1.1",
     "eslint": "^4.19.1",
     "eslint-import-resolver-node": "^0.3.2",
-    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-import": "^2.18.0",
     "mocha": "^5.2.0",
     "nock": "^9.4.3"
   },
   "dependencies": {
-    "@hyperjump/browser": "^0.14.0",
+    "@hyperjump/browser": "^0.17.1",
     "fastest-stable-stringify": "^2.0.2",
     "iconv-lite": "^0.4.24"
   }
