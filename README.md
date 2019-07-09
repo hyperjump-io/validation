@@ -1,33 +1,34 @@
-JSON Validation
-===============
+# Hyperjump Validation
 
-JSON Validation is a media type for describing and validating the structure of
-JSON data. Over the years, I've written a lot of JSON Schemas and helped others
-in all kinds of domains write their JSON Schemas. JSON Validation is a
-re-imagining of JSON Schema based on my experiences and knowledge. In part,
-it's an implementation of how I would define JSON Schema if given a blank slate,
-but mostly I'm using this implementation as a sandbox to try out new ideas and
-approaches to the JSON Schema style.
+Hyperjump Validation is a media type for describing the validation of data.
+Over the years, I've written a lot of [JSON Schema][jsonschema]s and helped
+others in all kinds of domains write their JSON Schemas. Hyperjump Validation is
+a re-imagining of JSON Schema based on my experiences and knowledge. In part,
+it's how I would define JSON Schema if given a blank slate, but mostly I'm using
+this implementation as a sandbox to try out new ideas and approaches to the JSON
+Schema style.
 
-A JSON Validation document is a [JSON Reference](https://github.com/jdesrosiers/json-reference)
-document and has the content type `application/validation+json`. To understand
-JSON Validation, you should first understand JSON Reference. Beware that this is
-not quite the same JSON Reference that is used in JSON Schema.
+A Hyperjump Validation document is a [JSON Reference][jref] (JRef) document and
+has the content type `application/validation+json`. To understand Hyperjump
+Validation, you first need to understand [JRef][jref]. JRef is similar to `$ref`
+in JSON Schema, but it differs in subtle yet important ways.
 
-A JSON Validation document is a declarative set of constraints that a JSON
-document must conform to in order to be considered valid. The JSON Validation
-document is parsable into a pure function that can be used to validate a JSON
-document in any language.
+A Hyperjump Validation document is a declarative set of constraints that a
+document must conform to in order to be considered valid. The Hyperjump
+Validation document is parsable into a pure function that can be used to
+validate a JSON document in any language.
 
-Installation
-------------
+## Installation
 
-Usage
------
+```bash
+npm install @hyperjump/validation --save
+```
+
+## Usage
 
 ```http
-GET http://validation.hyperjump.io/example1 HTTP/1.1
-Accept: application/reference+json
+GET https://example.com/example1 HTTP/1.1
+Accept: application/validation+json
 ```
 
 ```http
@@ -35,6 +36,7 @@ HTTP/1.1 200 OK
 Content-Type: application/validation+json
 
 {
+  "$meta": { "$href": "https://validation.hyperjump.io/common" },
   "type": "object",
   "properties": {
     "foo": { "type": "string" }
@@ -43,26 +45,132 @@ Content-Type: application/validation+json
 }
 ```
 
+```http
+GET https://example.com/subject1 HTTP/1.1
+Accept: application/reference+json
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/reference+json
+
+{
+  "foo": { "$href": "#/bar" },
+  "bar": "abc"
+}
+```
+
+```http
+GET https://example.com/subject2 HTTP/1.1
+Accept: application/json
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/reference+json
+
+{ "foo": 123 }
+```
+
 ```javascript
-const Validation = require("@hyperjump/json-validation");
+const Hyperjump = require("@hyperjump/browser");
+const Validation = require("@hyperjump/validation");
 
-(async () => {
-  // Get a validation document
-  const doc = await Validation.get("http://validation.hyperjump.io/example1", Validation.nil);
-
+(async function () {
   // Get a validator function from a validation document
-  const validate = await Validation.validate(doc);
+  // Throws an exception if the validation document is invalid
+  const example1 = Validation.get("https://example.com/example1", Validation.nil);
+  const validate = await Validation.validate(example1);
 
-  const result1 = validate({ "foo": "bar" });
+  // Validate JavaScript data
+  const subject0 = { "foo": "bar" };
+  const result0 = validate(subject0);
+  ValidationResult.isValid(result0); // => true
+
+  // Validate a JRef document
+  const subject1 = Hyperjump.get("https://example.com/subject1", Hyperjump.nil);
+  const result1 = validate(subject1);
   ValidationResult.isValid(result1); // => true
 
-  const result2 = validate({ "abc": 123 });
+  // Validate a JSON Document
+  const subject2 = Hyperjump.get("https://example.com/subject2", Hyperjump.nil);
+  const result2 = validate(subject2);
   ValidationResult.isValid(result2); // => false
 }());
 ```
 
-Contributing
-------------
+## $meta
+
+Every Hyperjump Validation document should have a `$meta` property at it's root
+that defines which validation constraint keywords it uses. For most people,
+you'll probably just need to put the following line at the top of each Hyperjump
+Validation document.
+
+```javascript
+{
+  "$meta": { "$href": "https://validation.hyperjump.io/common" }
+}
+```
+
+The value of `$meta` is an object whose property names are constraint keywords
+and property values are URLs pointing to a Hyperjump Validation document that
+can be used to validate usages of the constraint keyword. This concept is like
+the JSON Schema meta-schema except there is a meta-schema for each constraint
+keyword rather than one for the entire document.
+
+### Custom Constraint Keywords
+
+You can customize Hyperjump Validation in all kinds of ways with `$meta`. You
+can,
+
+* Add a new keyword to the standard vocabulary
+* Create a completely custom vocabulary
+* Rename an existing keyword
+* Combine keywords from different vocabularies to make your own
+
+You can use custom keywords in your keyword validation documents, but if you
+stick to standard keywords, then implementations that only know the standard
+keywords can at least validate that your custom keyword is used correctly even
+if it doesn't know how to apply the constraint when validating a document.
+
+You can add an implementation for a keyword as a plugin using the `addKeyword`
+function. All of the standard keywords are implemented as plugins so you can use
+those as examples for how to create your own.
+
+## Standard Vocabulary
+
+I'll fill in documentation for these eventually. For the most part, these are a
+subset of the JSON Schema keywords.
+
+### allOf
+### anyOf
+### const
+### definitions
+### exclusiveMaximum
+### exclusiveMinimum
+### items
+### maxItems
+### maxLength
+### maxProperties
+### maximum
+### minItems
+### minLength
+### minProperties
+### minimum
+### multipleOf
+### not
+### oneOf
+### pattern
+### patternProperties
+### properties
+### propertyNames
+### required
+### tupleItems
+### type
+### uniqueItems
+### validation
+
+## Contributing
 
 ### Tests
 
@@ -77,30 +185,37 @@ Run the tests with a continuous test runner
 npm test -- --watch
 ```
 
-Philosophy and Architectural Constraints
----------------------------------------
+## Philosophy and Architectural Constraints
 
 ### JSON
 
-JSON Validation does just what it says it does; It validates JSON. Is not
-intended for validating programming language specific types or data structures.
+The standard keywords are designed for validating JSON data. That includes media
+types that extend JSON such as JRef. However, Hyperjump Validation can validate
+native JavaScript data as well as Hyperjump documents which can be any media
+type. When validating non-JSON data, all data is effectively converted to JSON
+and that value is validated.
+
+This might sound strange, but in order to have interoperability between
+languages, there needs to be a common set of types. JSON fits that bill as well
+as anything. Every language knows how to work with JSON.
 
 ### Client-Server
 
-JSON Validation is designed to be used as part of a client-server architecture.
-Therefore JSON Validation documents, must be identified by a URL and must be
-retrievable.
+Hyperjump Validation is designed to be used as part of a client-server
+architecture.  Therefore Hyperjump Validation documents, must be identified by a
+URL and the document must be retrievable from that URL. It's not just an
+identifier, it's a locator.
 
 ### Layered System
 
-JSON Validation should be composable at as many levels as possible. There are a
-set of predefined keywords. New keywords can be defined as a composition of
-other keywords. (coming soon)
+Hyperjump Validation should be composable at as many levels as possible. There
+are a set of predefined keywords. New keywords can be defined as a composition
+of other keywords. (coming soon)
 
-A JSON Validation document is a collection of keywords. Each keyword adds a
-constraint. An empty JSON Validation document (`{}`) has no constraints. All JSON
-documents are valid. Each keyword adds a constraint further narrowing what
-constitutes a valid document.
+A Hyperjump Validation document is a collection of keywords. Each keyword adds a
+constraint. An empty Hyperjump Validation document (`{}`) has no constraints.
+All JSON documents are valid. Each keyword adds a constraint further narrowing
+what constitutes a valid document.
 
 ### Stateless
 
@@ -110,31 +225,23 @@ dependent on another keyword or any external data.
 
 ### Cache
 
-JSON Validation documents should be immutable and cacheable forever. Once
-published, they should never change. If they need to change, a new document
-should be created that is identified by a unique URL.
+The server should define how a Hyperjump Validation document can be cached by
+the client. This can be done through the standard HTTP cache mechanisms. It's
+recommended that Hyperjump Validation documents should be immutable and
+cacheable forever. Once published, they should never change. If they need to
+change, a new document should be created that is identified by a unique URL.
 
 ### Uniform Interface
 
-JSON Validation documents should validate the same way no matter what language
-the validator is implemented in. Each document identifies what keywords the
-implementation must support. Generating a validation function should result in
-an error if the implementation doesn't support one or more of the keywords in
-the JSON Validation document.
+Hyperjump Validation keywords should validate the same way no matter what
+language the validator is implemented in. The result of validating a JSON
+document should follow a standardized structure. (coming soon)
 
-The result of validating a JSON document should follow a standardized structure.
-(coming soon)
+## TODOs
 
-### Code on Demand
-
-For the things that can't be described as keywords, it should be possible to
-describe a keyword implementation using JavaScript (coming soon).
-
-TODOs
------
-
-* Value as JSON Reference document
-* `$data` keyword
 * More detailed validation results
-* Error message keyword
+* `$data` keyword
 * Keyword composition
+
+[jref]: https://github.com/jdesrosiers/hyperjump-browser/blob/master/json-reference/README.md
+[jsonschema]: https://json-schema.org
