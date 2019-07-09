@@ -1,5 +1,5 @@
 {
-  "name": "@hyperjump/json-validation",
+  "name": "@hyperjump/validation",
   "version": "0.9.0",
   "description": "A Hyperjump Validation implementation",
   "main": "lib/index.js",
@@ -8,7 +8,7 @@
     "lint": "eslint lib",
     "test": "mocha 'lib/**/*.spec.js'"
   },
-  "repository": "github:jdesrosiers/json-validation",
+  "repository": "github:jdesrosiers/hyperjump-validation",
   "keywords": [
     "JSON Validation",
     "validate",
