@@ -16,7 +16,10 @@ in JSON Schema, but it differs in subtle yet important ways.
 A Hyperjump Validation document is a declarative set of constraints that a
 document must conform to in order to be considered valid. The Hyperjump
 Validation document is parsable into a pure function that can be used to
-validate a JSON document in any language.
+validate a JSON or [JRef][jref] document in any language.
+
+You can try out Hyperjump Validation in your browser at
+https://validate.hyperjump.io.
 
 ## Installation
 
@@ -79,23 +82,23 @@ const Validation = require("@hyperjump/validation");
 (async function () {
   // Get a validator function from a validation document
   // Throws an exception if the validation document is invalid
-  const example1 = Validation.get("https://example.com/example1", Validation.nil);
+  const example1 = Hyperjump.get("https://example.com/example1", Hyperjump.nil);
   const validate = await Validation.validate(example1);
 
   // Validate JavaScript data
   const subject0 = { "foo": "bar" };
   const result0 = validate(subject0);
-  ValidationResult.isValid(result0); // => true
+  Validation.isValid(result0); // => true
 
   // Validate a JRef document
   const subject1 = Hyperjump.get("https://example.com/subject1", Hyperjump.nil);
   const result1 = validate(subject1);
-  ValidationResult.isValid(result1); // => true
+  Validation.isValid(result1); // => true
 
   // Validate a JSON Document
   const subject2 = Hyperjump.get("https://example.com/subject2", Hyperjump.nil);
   const result2 = validate(subject2);
-  ValidationResult.isValid(result2); // => false
+  Validation.isValid(result2); // => false
 }());
 ```
 
@@ -184,6 +187,8 @@ Run the tests with a continuous test runner
 ```bash
 npm test -- --watch
 ```
+
+## API
 
 ## Philosophy and Architectural Constraints
 
