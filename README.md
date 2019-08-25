@@ -82,7 +82,7 @@ const Validation = require("@hyperjump/validation");
 (async function () {
   // Get a validator function from a validation document
   // Throws an exception if the validation document is invalid
-  const example1 = Hyperjump.get("https://example.com/example1", Hyperjump.nil);
+  const example1 = Hyperjump.fetch("https://example.com/example1");
   const validate = await Validation.validate(example1);
 
   // Validate JavaScript data
@@ -91,12 +91,12 @@ const Validation = require("@hyperjump/validation");
   Validation.isValid(result0); // => true
 
   // Validate a JRef document
-  const subject1 = Hyperjump.get("https://example.com/subject1", Hyperjump.nil);
+  const subject1 = Hyperjump.fetch("https://example.com/subject1");
   const result1 = validate(subject1);
   Validation.isValid(result1); // => true
 
   // Validate a JSON Document
-  const subject2 = Hyperjump.get("https://example.com/subject2", Hyperjump.nil);
+  const subject2 = Hyperjump.fetch("https://example.com/subject2");
   const result2 = validate(subject2);
   Validation.isValid(result2); // => false
 }());
@@ -207,7 +207,7 @@ as anything. Every language knows how to work with JSON.
 ### Client-Server
 
 Hyperjump Validation is designed to be used as part of a client-server
-architecture.  Therefore Hyperjump Validation documents, must be identified by a
+architecture. Therefore Hyperjump Validation documents must be identified by a
 URL and the document must be retrievable from that URL. It's not just an
 identifier, it's a locator.
 
