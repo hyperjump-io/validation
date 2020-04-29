@@ -248,5 +248,5 @@ document should follow a standardized structure. (coming soon)
 * `$data` keyword
 * Keyword composition
 
-[jref]: https://github.com/jdesrosiers/hyperjump-browser/blob/master/json-reference/README.md
+[jref]: https://github.com/hyperjump-io/browser/blob/master/lib/json-reference/README.md
 [jsonschema]: https://json-schema.org
